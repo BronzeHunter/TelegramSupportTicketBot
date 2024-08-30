@@ -1,9 +1,9 @@
 # commands.py
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler, filters
-import sqlite3
 from datetime import datetime
 from config import ADMIN_USERS, ADMIN_CHAT_ID
+import sqlite3
 
 # Определение этапов для ConversationHandler'ов
 ENTER_NAME, ENTER_ORGANIZATION, ENTER_DESCRIPTION, ENTER_COMMENT = range(4)
@@ -13,26 +13,6 @@ ENTER_TICKET_ID_NEW_COMMENT, ENTER_NEW_COMMENT = range(2)
 ENTER_TICKET_ID_STATUS, ENTER_STATUS = range(2)
 ENTER_TICKET_ID_DELETE = range(1)
 ENTER_TICKET_ID = range(1)
-
-# Функция для создания базы данных тикетов
-def create_database():
-    conn = sqlite3.connect('tickets.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS tickets (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        chat_id INTEGER,
-        client_name TEXT,
-        organization TEXT,
-        description TEXT,
-        status TEXT DEFAULT 'Открыт ⌛',
-        comments TEXT DEFAULT '',
-        feedback TEXT DEFAULT ''
-    )
-    ''')
-    conn.commit()
-    conn.close()
-
 
 async def show_main_menu(update: Update, context):
     user_id = str(update.message.from_user.id)
