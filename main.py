@@ -1,3 +1,4 @@
+#main.py
 from telegram.ext import Application, CommandHandler, ConversationHandler, MessageHandler, filters
 from commands import (
     start, help_command, new_ticket_start, enter_name, enter_organization, enter_description, enter_comment, my_tickets,
@@ -5,8 +6,9 @@ from commands import (
     admin_delete_ticket_start, enter_ticket_id_delete, cancel,add_new_comment_start, enter_ticket_id_new_comment, enter_new_comment,
     show_main_menu, admin_show_all_tickets, is_ticket_closed, delete_all_closed_tickets
 )
+import sqlite3
 from config import BOT_TOKEN
-from commands import create_database
+from db import create_database
 
 # Определение этапов для ConversationHandler'ов
 ENTER_NAME, ENTER_ORGANIZATION, ENTER_DESCRIPTION, ENTER_COMMENT = range(4)
@@ -16,6 +18,8 @@ ENTER_TICKET_ID_NEW_COMMENT, ENTER_NEW_COMMENT = range(2)
 ENTER_TICKET_ID_STATUS, ENTER_STATUS = range(2)
 ENTER_TICKET_ID_DELETE = range(1)
 ENTER_TICKET_ID = range(1)
+
+
 
 # Функция для настройки ConversationHandler'ов
 def setup_conversation_handlers():
@@ -98,3 +102,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
